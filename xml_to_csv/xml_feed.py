@@ -15,7 +15,7 @@ class XmlFeed:
             self.feed = requests.get(self.input).content
         elif self.is_file:
             self.feed = open(self.input, 'rb')
-        elif isinstance(self.input, str):
+        elif self.input.startswith('<') and self.input.endswith('>'):
             self.feed = self.input
         else:
             raise TypeError("Please provide a parse-able input [file/url/text].")
