@@ -14,11 +14,11 @@ class PrimaryElementMixin:
 
     def get_element_value(self, elem):
         """Return the element's value"""
-        return elem.text if elem else ''
+        return elem.text if elem is not None else ''
 
     def create_value_for_sub_elements(self, mainElem, subElemName):
         """Create a value for sub elements"""
-        if not mainElem:
+        if mainElem is None:
             return ''
 
         subElements = mainElem.xpath('.//{}'.format(subElemName))
