@@ -45,7 +45,7 @@ class TestGetPrimaryElements(TestCase):
 
     def test_with_valid_document(self):
         """"A valid document should return a list of the implemented elements"""
-        TEST_DOCUMENT = "<test><Listing></Listing><Listing></Listing></test>"
+        TEST_DOCUMENT = "<Listings><Listing><DateListed>2016-01-01 00:00:00</DateListed></Listing><Listing><DateListed>2017-01-01 00:00:00</DateListed></Listing></Listings>"
         xmlDocElement = XmlDocumentElement(TEST_DOCUMENT)
         results = xmlDocElement.get_primary_elements(self.CURRENTLY_IMPLEMENTED_ELEMENT_NAME)
         for result in results:
