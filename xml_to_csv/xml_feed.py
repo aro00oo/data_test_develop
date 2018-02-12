@@ -5,7 +5,7 @@ from urlparse import urlparse
 
 
 class XmlFeed:
-    """Represents XML in some type of feed"""
+    """Represents some type of xml feed into a normalized feed """
     def __init__(self, input):
         self.input = input
 
