@@ -2,7 +2,7 @@
 
 ### Script Requirements:
 - Run $ pip install -r requirements.txt (http://lxml.de/installation.html for more info for lxml if unable to install)
-- To run: $ python (assumed python2.7) main.py -i <input file/url/string> -o <outputfilepath> -n <primaryelementname>
+- To run: $ python (assumed python2.7) main.py -i [input file/url/string] -o [outputfilepath] -n [primaryelementname]
     - For the exercise, the primary element name is "Listing"
     - e.g. python main.py -i http://syndication.enterprise.websiteidx.com/feeds/BoojCodeTest.xml -o /output.csv -n Listing
 
