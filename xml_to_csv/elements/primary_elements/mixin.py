@@ -12,11 +12,13 @@ class PrimaryElementMixin:
         matchingElements =  find_child_elements(self.element, childName)
         return matchingElements[0] if matchingElements else None
 
-    def get_element_value(self, elem):
+    @staticmethod
+    def get_element_value(elem):
         """Return the element's value"""
         return elem.text if elem is not None else ''
 
-    def create_value_for_sub_elements(self, mainElem, subElemName):
+    @staticmethod
+    def create_value_for_sub_elements(mainElem, subElemName):
         """Create a value for sub elements"""
         if mainElem is None:
             return ''
