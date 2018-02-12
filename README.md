@@ -3,6 +3,7 @@ Write a script to download and parse the given XML feed, manipulate some of the 
 required fields. You may use any additional libraries that you wish, please include a requirements.txt if you 
 do.
 
+
 ### CSV Requirements:
 - Contains only properties listed from 2016 [DateListed]
 - Contains only properties that contain the word "and" in the Description field
