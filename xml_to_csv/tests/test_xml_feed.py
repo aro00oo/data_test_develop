@@ -8,7 +8,7 @@ class TestEnter(TestCase):
     """Various cases for the enter method"""
 
     @patch('xml_to_csv.xml_feed.requests')
-    def test_enter_with_url(self, requestsMock):
+    def test_enter_with_url(self, requestsPatch):
         """Ensure requests and response.content gets called"""
         TEST_URL = "http://test.com"
         getMethod = MagicMock()
@@ -16,7 +16,7 @@ class TestEnter(TestCase):
         getMethod.return_value = getMethodReturnValue
         contentPropertyMock = PropertyMock()
         type(getMethodReturnValue).content = contentPropertyMock
-        requestsMock.get = getMethod
+        requestsPatch.get = getMethod
         with XmlFeed(TEST_URL) as feed:
             self.assertTrue(feed.is_url)
             self.assertFalse(feed.is_file)
@@ -26,16 +26,15 @@ class TestEnter(TestCase):
 
     @patch('xml_to_csv.xml_feed.open')
     @patch('xml_to_csv.xml_feed.os')
-    def test_enter_with_file(self, osMock, openMock):
+    def test_enter_with_file(self, osPatch, openPatch):
         """Ensure file is opened"""
         TEST_FILE = '/test/testfile.test'
         FILE_MODE = 'rb'
         with XmlFeed(TEST_FILE) as feed:
             self.assertTrue(feed.is_file)
             self.assertFalse(feed.is_url)
-            pass
 
-        openMock.assert_called_with(TEST_FILE, FILE_MODE)
+        openPatch.assert_called_with(TEST_FILE, FILE_MODE)
 
     def test_enter_with_string(self):
         TEST_INPUT_STR = "<body><h1>hello world</h1></body>"
@@ -52,14 +51,14 @@ class TestExit(TestCase):
 
     @patch('xml_to_csv.xml_feed.open')
     @patch('xml_to_csv.xml_feed.os')
-    def test_exit_with_file(self, osMock, openMock):
+    def test_exit_with_file(self, osPatch, openPatch):
         """Ensure file is closed"""
         TEST_FILE = '/test/testfile.test'
 
         openMockReturnValue = Mock()
         closeMethodMock = MagicMock()
         openMockReturnValue.close = closeMethodMock
-        openMock.return_value = openMockReturnValue
+        openPatch.return_value = openMockReturnValue
 
         with XmlFeed(TEST_FILE) as feed:
             self.assertTrue(feed.is_file)
