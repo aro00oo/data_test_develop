@@ -42,6 +42,12 @@ class TestEnter(TestCase):
             self.assertFalse(feed.is_file)
             self.assertFalse(feed.is_url)
 
+    def test_enter_with_invalid_string(self):
+        TEST_INPUT_STR = "TEST"
+        with self.assertRaises(TypeError):
+            with XmlFeed(TEST_INPUT_STR) as feed:
+                self.assertFalse(feed.is_file)
+                self.assertFalse(feed.is_url)
 
 class TestExit(TestCase):
     """Case for the exit method"""
