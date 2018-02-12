@@ -1,45 +1,27 @@
-# Assignment
-Write a script to download and parse the given XML feed, manipulate some of the data, and deliver a CSV of the
-required fields. You may use any additional libraries that you wish, please include a requirements.txt if you 
-do.
+# Luke's Submission
 
-### CSV Requirements:
-- Contains only properties listed from 2016 [DateListed]
-- Contains only properties that contain the word "and" in the Description field
-- CSV ordered by DateListed
-- Required fields:
-	- MlsId
-	- MlsName
-	- DateListed
-	- StreetAddress
-	- Price
-	- Bedrooms
-	- Bathrooms
-	- Appliances (all sub-nodes comma joined)
-	- Rooms (all sub-nodes comma joined)
-	- Description (the first 200 characters)
+### Script Requirements:
+- Run $ pip install -r requirements.txt (http://lxml.de/installation.html for more info for lxml if unable to install)
+- To run: $ python (assumed python2.7) main.py -i <input file/url/string> -o <outputfilepath> -n <primaryelementname>
+    - For the exercise, the primary element name is "Listing"
+    - e.g. python main.py -i http://syndication.enterprise.websiteidx.com/feeds/BoojCodeTest.xml -o /output.csv -n Listing
 
-### Technical Requirements
-- Interpreter version: python 2.7
-- Reasonable unit test coverage
-- All libraries used must be documented in requirements.txt
-	- We will be using `pip install -r requirements.txt` prior to running your code
-- Raw information to parse / feed url
-	- http://syndication.enterprise.websiteidx.com/feeds/BoojCodeTest.xml
-	- This feed must be downloaded from with in the script, raw data must not be downloaded manually
+### Unit Tests
+- To run: $ python (assumed python2.7) -m unittest discover
 
-### Submission Requirements
-- Work should be tracked with Git
-- Submit final product by submitting a pull request
+### Other Thoughts
 
-# Purpose
-A lot of the work in our department is parsing and manipulating data from a variety of sources. The given example
-is one of our XML files that we send to Zillow for property syndication. 
-Our goal in this test is to see how you will approach the processing of this feed. Your solution should take into
-the account that there will be other XML feeds that need parsing as well, so how modular/reusable you make the code
-is very important. 
+- The modular stipulation was the most difficult for me given the constraints of the output. Not sure how I was supposed to reconcile
+the "required fields" stipulation with making it as modular as possible. I could have written it so it just spit out all
+the nodes for a primary element to different rows, but the "required fields" stipulation made that not feasible. So, I just
+went with having to implement a wrapper class for any future xml document to-be-parsed. Here, Listing is defined and it provides
+the interface for being it written into a CSV row (along with a processor class to parse the data more if necessary).
 
-# Time Considerations
-This assignment is expect to take a few hours. We ask that you do not spend too much time on this solution. If you
-are stuck or have questions, feel free to reach out and we will answer quickly. 
+- Couple assumptions I made include:
+    - That all incoming xml documents are a container-behaving document (the test case is a Listings container of Listing elements)
+    - That the first child element is the one we want, I saw several records with multiple StreetAddress, Description
+    and other elements. If that was a wrong assumption, I could just join the values of the multiple records, but I just
+    used that logic only for the ones that had the "all sub-nodes comma joined" stipulation.
 
+- Missed unittest on the XmlToCsv and PrimaryElementsProcessor classes as I remembered the "please don't spend too much time"
+request :D, unittests definitely took the most time.
