@@ -64,5 +64,4 @@ class TestExit(TestCase):
         with XmlFeed(TEST_FILE) as feed:
             self.assertTrue(feed.is_file)
             self.assertFalse(feed.is_url)
-            pass
         closeMethodMock.assert_called()
